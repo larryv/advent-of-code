@@ -1,7 +1,7 @@
 # A program that solves Day 4 of Advent of Code 2020
 # <https://adventofcode.com/2020/day/4>
 #
-# Written in 2020-2021 by Lawrence Velázquez <vq@larryv.me>.
+# Written in 2020-2021 by Lawrence Velazquez <vq@larryv.me>.
 #
 # To the extent possible under law, the author(s) have dedicated all
 # copyright and related and neighboring rights to this software to the
@@ -63,7 +63,7 @@ END {
 
 # === PUZZLE ===
 #
-# Copyright © 2020 Eric Wastl <http://was.tl>
+# Copyright 2020 Eric Wastl <http://was.tl>
 #
 #
 # --- Day 4: Passport Processing ---
