@@ -1,7 +1,7 @@
 # A program that solves Day 2 of Advent of Code 2020
 # <https://adventofcode.com/2020/day/2>
 #
-# Written in 2020 by Lawrence Velazquez <vq@larryv.me>.
+# Written in 2020, 2023 by Lawrence Velazquez <vq@larryv.me>.
 #
 # To the extent possible under law, the author has dedicated all
 # copyright and related and neighboring rights to this software to the
@@ -14,22 +14,22 @@
 
 
 BEGIN {
-    FS = "-|:? +"
+	FS = "-|:? +"
 }
 
 {
-    # Assume that $3 contains no ERE special characters.
-    char_count = gsub($3, "&", $4)
-    old_pw_count += $1 <= char_count && char_count <= $2
+	# Assume that $3 contains no ERE special characters.
+	char_count = gsub($3, "&", $4)
+	old_pw_count += $1 <= char_count && char_count <= $2
 
-    char1 = substr($4, $1, 1)
-    char2 = substr($4, $2, 1)
-    new_pw_count += (char1 == $3 || char2 == $3) && char1 != char2
+	char1 = substr($4, $1, 1)
+	char2 = substr($4, $2, 1)
+	new_pw_count += (char1 == $3 || char2 == $3) && char1 != char2
 }
 
 END {
-    print old_pw_count
-    print new_pw_count
+	print old_pw_count
+	print new_pw_count
 }
 
 
