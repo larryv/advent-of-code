@@ -1,7 +1,7 @@
 # A program that runs other programs that solve Advent of Code
 # <https://adventofcode.com>
 #
-# Written in 2020 by Lawrence Velazquez <vq@larryv.me>
+# Written in 2020, 2023 by Lawrence Velazquez <vq@larryv.me>
 #
 # To the extent possible under law, the author has dedicated all
 # copyright and related and neighboring rights to this software to the
@@ -19,11 +19,12 @@
 SHELL = /bin/sh
 
 AWK = awk
-SED = sed
 SH = sh
 
-# Each source file ends with comments containing the puzzle's input.
+# Don't bother trying to depend on the *.input files.  Doing so while
+# conforming to POSIX.1-2017 would be more hassle than it's worth, and
+# the *.input files can't be automatically created or updated anyway.
 .awk:
-	$(SED) '1,/^# === INPUT ===$$/d; s/^#//' $< | $(AWK) -f $<
+	$(AWK) -f $< $*.input
 .sh:
-	$(SED) '1,/^# === INPUT ===$$/d; s/^#//' $< | $(SH) $<
+	$(SH) $< <$*.input
