@@ -20,24 +20,23 @@
 # No need to worry about duplicates in the input because there are none.
 
 {
-	input1[$0] = input2[$0] = 1
+	# Iterating over entries as they are accrued avoids reversed
+	# pairs naturally.
+	for (x in entries) {
+		# Keep track of sums and products as we go.  This avoids
+		# O(n^3) runtime at the cost of O(n^2) memory.
+		sums2prods[x + $0] = x * $0
+	}
+
+	# Add new entry after iteration to avoid pairing it with itself.
+	entries[$0]
 }
 
 END {
-	for (x1 in input1) {
-		# Avoid processing the reversed pair of entries later.
-		delete input2[x1]
-		for (x2 in input2) {
-			# Keep track of sums as we go. This avoids O(n^3) runtime at
-			# the cost of O(n^2) memory.
-			sums2prods[x1 + x2] = x1 * x2
-		}
-	}
-
 	# Part 1 answer.
 	print sums2prods[2020]
 
-	for (x in input1) {
+	for (x in entries) {
 		if (2020 - x in sums2prods) {
 			# Part 2 answer.
 			print x * sums2prods[2020 - x]
