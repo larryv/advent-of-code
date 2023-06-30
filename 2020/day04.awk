@@ -54,24 +54,22 @@ NF >= 7 {
 		fields[$i] = $(i + 1)
 
 	# Lax validation only requires that all fields be present.
-	lax_count += ("byr" in fields && "iyr" in fields && "eyr" in fields &&
-	              "hgt" in fields && "hcl" in fields && "ecl" in fields &&
-	              "pid" in fields)
+	for (field in rules)
+		if (!(field in fields))
+			next
+	++laxly_valid_count
 
 	# Strict validation requires that all fields be ... well, valid.
-	strict_count += (fields["byr"] ~ rules["byr"] &&
-	                 fields["iyr"] ~ rules["iyr"] &&
-	                 fields["eyr"] ~ rules["eyr"] &&
-	                 fields["hgt"] ~ rules["hgt"] &&
-	                 fields["hcl"] ~ rules["hcl"] &&
-	                 fields["ecl"] ~ rules["ecl"] &&
-	                 fields["pid"] ~ rules["pid"])
+	for (field in rules)
+		if (fields[field] !~ rules[field])
+			next
+	++strictly_valid_count
 }
 
 END {
 	# Part 1 answer.
-	print lax_count + 0
+	print laxly_valid_count + 0
 
 	# Part 2 answer.
-	print strict_count + 0
+	print strictly_valid_count + 0
 }
