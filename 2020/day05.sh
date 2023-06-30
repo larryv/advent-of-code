@@ -17,14 +17,15 @@
 # <https://creativecommons.org/publicdomain/zero/1.0/>.
 
 
-# The seat specification is a binary representation of the seat ID using
-# the alphabet {L, R} for the three least significant bits and {F, B}
-# for the rest. Translate to the familiar {0, 1} and go from there.
-
 # Convert the input into one enormous bc(1) program.  Hehe.
-tr FBLR 0101 | sed '
+sed '
+	# The seat specification is a binary representation of the seat
+	# ID using the alphabet {L, R} for the three least significant
+	# bits and {F, B} for the rest.  Translate to {0, 1} and work
+	# with the numbers directly.
 	1i\
 	ibase = 2
+	y/FBLR/0101/
 
 	# Find highest seat ID (part 1 answer).
 	s/..*/seats[&] = 1; if (& > max_id) max_id = &/
