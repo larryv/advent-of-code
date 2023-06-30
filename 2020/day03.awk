@@ -17,22 +17,31 @@
 # <https://creativecommons.org/publicdomain/zero/1.0/>.
 
 
-NR > 1 {
-	# Zero-indexing simplifies the modular arithmetic.
-	step = NR - 1
-
+BEGIN {
 	# Ordered as in in Part 2 of the problem statement.
-	trees1 += substr($0, step % length + 1, 1) == "#"
-	trees2 += substr($0, 3 * step % length + 1, 1) == "#"
-	trees3 += substr($0, 5 * step % length + 1, 1) == "#"
-	trees4 += substr($0, 7 * step % length + 1, 1) == "#"
-	trees5 += NR % 2 && substr($0, step % length + 1, 1) == "#"
+	dx[1] = 1; dy[1] = 1
+	dx[2] = 3; dy[2] = 1
+	dx[3] = 5; dy[3] = 1
+	dx[4] = 7; dy[4] = 1
+	dx[5] = 1; dy[5] = 2
+}
+
+# Zero-indexing simplifies the modular arithmetic.
+y = NR - 1 {
+	for (i in dx) {
+		x = dx[i] * y % length
+		if (!(y % dy[i]) && substr($0, x + 1, 1) == "#")
+			++trees[i]
+	}
 }
 
 END {
 	# Part 1 answer.
-	print trees2 + 0
+	print trees[2] + 0
 
 	# Part 2 answer.
-	print trees1 * trees2 * trees3 * trees4 * trees5
+	trees_prod = 1
+	for (i in trees)
+		trees_prod *= trees[i]
+	print trees_prod
 }
