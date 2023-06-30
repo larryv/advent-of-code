@@ -29,8 +29,10 @@ sed '
 
 	# Find highest seat ID (part 1 answer).
 	s/..*/seats[&] = 1; if (& > max_id) max_id = &/
+	$a\
+	max_id
 
 	# Find my seat (part 2 answer).
 	$a\
-	max_id; for (id = max_id - 1; seats[id]; --id) {}; id
+	for (id = max_id - 1; seats[id]; --id) {}; id
 ' | bc
