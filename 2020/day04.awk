@@ -17,11 +17,6 @@
 # <https://creativecommons.org/publicdomain/zero/1.0/>.
 
 
-
-function is_in_range(val, min, max) {
-	return min <= val && val <= max
-}
-
 BEGIN {
 	# POSIX.1-2017 says:
 	#
@@ -37,6 +32,16 @@ BEGIN {
 	# explicitly.
 	FS = ":|[ \n]+"
 	RS = ""
+
+	# The makefile specifies the POSIX locale, so character classes
+	# and range expressions work predictably.
+	rules["byr"] = "^(19[2-9][0-9]|200[0-2])$"
+	rules["iyr"] = "^(201[0-9]|2020)$"
+	rules["eyr"] = "^(202[0-9]|2030)$"
+	rules["hgt"] = "^((1[5-8][0-9]|19[0-3])cm|(59|6[0-9]|7[0-6])in)$"
+	rules["hcl"] = "^#[[:xdigit:]]{6}$"
+	rules["ecl"] = "^(amb|blu|brn|gry|grn|hzl|oth)$"
+	rules["pid"] = "^[0-9]{9}$"
 }
 
 # Preemptively ignore passports with too few fields to be valid.
@@ -54,25 +59,13 @@ NF >= 7 {
 	              "pid" in fields)
 
 	# Strict validation requires that all fields be ... well, valid.
-	#
-	# Explicitly check the textual representations to avoid accepting
-	# invalid numeric strings that happen to satisfy the numeric bounds.
-	# (For example, both "+1969" and "00000001969" would be accepted for
-	# "byr" based on numeric value.) Avoid character classes and range
-	# expressions, which depend on locale.
-	strict_count += (fields["byr"] ~ /^[0123456789]{4}$/ &&
-	                    is_in_range(fields["byr"], 1920, 2002) &&
-	                 fields["iyr"] ~ /^[0123456789]{4}$/ &&
-	                    is_in_range(fields["iyr"], 2010, 2020) &&
-	                 fields["eyr"] ~ /^[0123456789]{4}$/ &&
-	                    is_in_range(fields["eyr"], 2020, 2030) &&
-	                 (fields["hgt"] ~ /^[0123456789]+cm$/ &&
-	                        is_in_range(int(fields["hgt"]), 150, 193) ||
-	                    fields["hgt"] ~ /^[0123456789]+in$/ &&
-	                        is_in_range(int(fields["hgt"]), 59, 76)) &&
-	                 fields["hcl"] ~ /^#[0123456789abcdef]{6}$/ &&
-	                 fields["ecl"] ~ /^(amb|blu|brn|gry|grn|hzl|oth)$/ &&
-	                 fields["pid"] ~ /^[0123456789]{9}$/)
+	strict_count += (fields["byr"] ~ rules["byr"] &&
+	                 fields["iyr"] ~ rules["iyr"] &&
+	                 fields["eyr"] ~ rules["eyr"] &&
+	                 fields["hgt"] ~ rules["hgt"] &&
+	                 fields["hcl"] ~ rules["hcl"] &&
+	                 fields["ecl"] ~ rules["ecl"] &&
+	                 fields["pid"] ~ rules["pid"])
 }
 
 END {

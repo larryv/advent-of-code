@@ -30,7 +30,11 @@ SH = sh
 # Don't bother trying to depend on the *.input files.  Doing so while
 # conforming to POSIX.1-2017 would be more hassle than it's worth, and
 # the *.input files can't be automatically created or updated anyway.
+#
+# Use the POSIX locale so features like character classes and range
+# expressions work predictably.  This won't interfere with processing
+# the input, which (as far as I know) is always ASCII.
 .awk:
-	$(AWK) -f $< $*.input
+	LC_ALL=C $(AWK) -f $< $*.input
 .sh:
-	$(SH) $< <$*.input
+	LC_ALL=C $(SH) $< <$*.input
