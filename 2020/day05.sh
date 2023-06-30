@@ -28,11 +28,11 @@ sed '
 	y/FBLR/0101/
 
 	# Find highest seat ID (part 1 answer).
-	s/..*/s[&] = 1; if (& > m) m = &/
+	s/..*/s[&] = 1; if (& > i) i = &/
 	$a\
-	m
+	i
 
 	# Find my seat (part 2 answer).
 	$a\
-	for (i = m - 1; s[i]; --i) {}; i
+	while (s[--i]) {}; i
 ' | bc
