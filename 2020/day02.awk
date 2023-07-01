@@ -33,8 +33,8 @@ BEGIN {
 
 END {
 	# Part 1 answer.
-	print old_pw_count
+	print old_pw_count + 0
 
 	# Part 2 answer.
-	print new_pw_count
+	print new_pw_count + 0
 }

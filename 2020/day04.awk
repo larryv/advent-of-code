@@ -77,8 +77,8 @@ NF >= 7 {
 
 END {
 	# Part 1 answer.
-	print lax_count
+	print lax_count + 0
 
 	# Part 2 answer.
-	print strict_count
+	print strict_count + 0
 }

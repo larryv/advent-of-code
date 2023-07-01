@@ -36,8 +36,8 @@ BEGIN {
 
 END {
 	# Part 1 answer.
-	print any_count
+	print any_count + 0
 
 	# Part 2 answer.
-	print every_count
+	print every_count + 0
 }

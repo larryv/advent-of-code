@@ -31,7 +31,7 @@ NR > 1 {
 
 END {
 	# Part 1 answer.
-	print trees2
+	print trees2 + 0
 
 	# Part 2 answer.
 	print trees1 * trees2 * trees3 * trees4 * trees5
