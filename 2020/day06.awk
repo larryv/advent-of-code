@@ -25,19 +25,19 @@ BEGIN {
 	# Each field represents one person and does not repeat letters.
 	for (i = 1; i <= NF; ++i)
 		for (j = length($i); j; --j)
-			++answered[substr($i, j, 1)]
+			++yeses[substr($i, j, 1)]
 
-	for (q in answered) {
-		++any_count
-		every_count += answered[q] == NF
-		delete answered[q]
+	for (q in yeses) {
+		++anyone_count
+		everyone_count += yeses[q] == NF
+		delete yeses[q]
 	}
 }
 
 END {
 	# Part 1 answer.
-	print any_count + 0
+	print anyone_count + 0
 
 	# Part 2 answer.
-	print every_count + 0
+	print everyone_count + 0
 }

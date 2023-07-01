@@ -24,17 +24,17 @@ BEGIN {
 {
 	# This is safe because $3 is always [a-z] in the input.
 	char_count = gsub($3, "&", $4)
-	old_pw_count += $1 <= char_count && char_count <= $2
+	old_valid_count += $1 <= char_count && char_count <= $2
 
 	char1 = substr($4, $1, 1)
 	char2 = substr($4, $2, 1)
-	new_pw_count += (char1 == $3 || char2 == $3) && char1 != char2
+	new_valid_count += (char1 == $3 || char2 == $3) && char1 != char2
 }
 
 END {
 	# Part 1 answer.
-	print old_pw_count + 0
+	print old_valid_count + 0
 
 	# Part 2 answer.
-	print new_pw_count + 0
+	print new_valid_count + 0
 }
