@@ -44,8 +44,9 @@ BEGIN {
 	rules["pid"] = "^[0-9]{9}$"
 }
 
-# Preemptively ignore passports with too few fields to be valid.
-NF >= 7 {
+# Preemptively ignore passports with too few fields to be valid.  (The
+# 7 required passport field names and values become 14 AWK fields.)
+NF >= 14 {
 	for (key in fields)
 		delete fields[key]
 
