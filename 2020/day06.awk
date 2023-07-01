@@ -24,7 +24,7 @@ BEGIN {
 {
 	# Each field represents one person and does not repeat letters.
 	for (i = 1; i <= NF; ++i)
-		for (j = 1; j <= length($i); ++j)
+		for (j = length($i); j; --j)
 			++answered[substr($i, j, 1)]
 
 	for (q in answered) {
