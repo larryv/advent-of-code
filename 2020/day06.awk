@@ -29,7 +29,8 @@ BEGIN {
 
 	for (q in yeses) {
 		++anyone_count
-		everyone_count += yeses[q] == NF
+		if (yeses[q] == NF)
+			++everyone_count
 		delete yeses[q]
 	}
 }
