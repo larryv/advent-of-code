@@ -1,17 +1,23 @@
-# A program that solves Day 1 of Advent of Code 2020
+# 2020/day01.awk
+# An AWK program that solves Day 1 of Advent of Code 2020
 # <https://adventofcode.com/2020/day/1>
+# -------------------------------------------------------
+#
+# SPDX-License-Identifier: CC0-1.0
 #
 # Written in 2020, 2023 by Lawrence Velazquez <vq@larryv.me>.
 #
 # To the extent possible under law, the author has dedicated all
 # copyright and related and neighboring rights to this software to the
-# public domain worldwide. This software is distributed without any
+# public domain worldwide.  This software is distributed without any
 # warranty.
 #
 # You should have received a copy of the CC0 Public Domain Dedication
-# along with this software. If not, see
+# along with this software.  If not, see
 # <https://creativecommons.org/publicdomain/zero/1.0/>.
 
+
+# No need to worry about duplicates in the input because there are none.
 
 {
 	input1[$0] = input2[$0] = 1
@@ -28,10 +34,12 @@ END {
 		}
 	}
 
+	# Part 1 answer.
 	print sums2prods[2020]
 
 	for (x in input1) {
 		if (2020 - x in sums2prods) {
+			# Part 2 answer.
 			print x * sums2prods[2020 - x]
 			exit
 		}
